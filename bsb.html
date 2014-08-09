@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css" />
     <link rel="stylesheet" type="text/css" href="css/bootplus.min.css" />
@@ -13,9 +14,14 @@
                     <div class="card">
                        <h3 class="card-heading simple">How Old Are You?</h3>
                        <div class="card-body">
-                          When were you born?
-                          <form>
-                          <input type="date" name="bdaytime"/>
+                          <form class="form">
+                              <fieldset>
+                                <label for="bdaytime">What's your Birthday?</label>
+                                <div class="input-append">
+                                <input autofocus type="date" name="bdaytime" value="1991-03-06"/>
+                                <button class="btn" type="button">Go!</button>
+                                </div>
+                              </fieldset>
                           </form>
                        </div>
                        <div class="card-comments">
