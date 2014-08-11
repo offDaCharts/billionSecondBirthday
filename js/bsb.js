@@ -16,7 +16,7 @@ $(function() {
 					$milestone,
 					milestoneMoment;
 
-				$('#current.flipclock')
+				$('#current .flipclock')
 					.empty()
 					.FlipClock(Math.round(moment().diff(bdaytime)/millisecondMultiplier), {
 						clockFace: 'Counter',
@@ -24,8 +24,9 @@ $(function() {
 					});
 
 				for(milestone in secondMilestones) {
+					var milestoneMoment = moment(bdaytime + secondMilestones[milestone] * millisecondMultiplier);
+					console.log(milestoneMoment);
 					$milestone = $("#" + milestone);
-					milestoneMoment = moment(bdaytime + secondMilestones[milestone]*millisecondMultiplier);
 					$milestone.find(".livestamp").livestamp(milestoneMoment);
 					$milestone.find(".date").text(milestoneMoment.toLocaleString());
 				}
