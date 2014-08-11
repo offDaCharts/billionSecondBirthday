@@ -16,9 +16,12 @@ $(function() {
 					$milestone,
 					milestoneMoment;
 
-				var clock = $('#current').FlipClock({
-					
-				});
+				$('#current.flipclock')
+					.empty()
+					.FlipClock(Math.round(moment().diff(bdaytime)/millisecondMultiplier), {
+						clockFace: 'Counter',
+						autoStart: true
+					});
 
 				for(milestone in secondMilestones) {
 					$milestone = $("#" + milestone);
