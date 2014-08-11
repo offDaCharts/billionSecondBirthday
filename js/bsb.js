@@ -21,7 +21,7 @@ $(function() {
 					secondsFromNow,
 					flipclockParameters;
 
-				$('#current.flipclock')
+				$('#current .flipclock')
 					.empty()
 					.FlipClock(getSecondsFromNow(bdaytime)), {
 						clockFace: 'Counter',
@@ -30,6 +30,8 @@ $(function() {
 
 
 				for(milestone in secondMilestones) {
+					var milestoneMoment = moment(bdaytime + secondMilestones[milestone] * millisecondMultiplier);
+					console.log(milestoneMoment);
 					$milestone = $("#" + milestone);
 					milestoneMoment = moment(bdaytime + secondMilestones[milestone]*millisecondMultiplier);
 					secondsFromNow = getSecondsFromNow(milestoneMoment);
@@ -39,7 +41,7 @@ $(function() {
 								clockFace: 'DailyCounter',
 								countdown: (secondsFromNow >= 0)
 							});
-					$milestone.find(".flipclock").livestamp(milestoneMoment);
+					// $milestone.find(".livestamp").livestamp(milestoneMoment);
 					$milestone.find(".date").text(milestoneMoment.toLocaleString());
 				}
 			}
