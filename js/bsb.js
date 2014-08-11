@@ -5,7 +5,7 @@ $(function() {
 		afterLoad: function(anchorLink, index) {
 			var tableDisplayPageNum = 2,
 				getSecondsFromNow = function(thisMoment) {
-					return Math.round(moment().diff(bdaytime)/millisecondMultiplier);
+					return Math.round(moment().diff(thisMoment)/millisecondMultiplier);
 				}
 
 			if (index === tableDisplayPageNum) {
@@ -23,17 +23,15 @@ $(function() {
 
 				$('#current .flipclock')
 					.empty()
-					.FlipClock(getSecondsFromNow(bdaytime)), {
+					.FlipClock(getSecondsFromNow(bdaytime), {
 						clockFace: 'Counter',
 						autoStart: true
 					});
 
 
 				for(milestone in secondMilestones) {
-					var milestoneMoment = moment(bdaytime + secondMilestones[milestone] * millisecondMultiplier);
-					console.log(milestoneMoment);
+					milestoneMoment = moment(bdaytime + secondMilestones[milestone] * millisecondMultiplier);
 					$milestone = $("#" + milestone);
-					milestoneMoment = moment(bdaytime + secondMilestones[milestone]*millisecondMultiplier);
 					secondsFromNow = getSecondsFromNow(milestoneMoment);
 					$milestone.find(".flipclock")
 							.empty()
