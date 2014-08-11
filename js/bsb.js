@@ -5,7 +5,7 @@ $(function() {
 		afterLoad: function(anchorLink, index) {
 			var tableDisplayPageNum = 2,
 				getSecondsFromNow = function(thisMoment) {
-					return Math.round(moment().diff(thisMoment)/millisecondMultiplier);
+					return Math.round(thisMoment.diff(moment())/millisecondMultiplier);
 				}
 
 			if (index === tableDisplayPageNum) {
@@ -23,8 +23,9 @@ $(function() {
 
 				$('#current .flipclock')
 					.empty()
-					.FlipClock(getSecondsFromNow(bdaytime), {
+					.FlipClock(Math.abs(getSecondsFromNow(bdaytime)), {
 						clockFace: 'Counter',
+						countdown: (secondsFromNow <= 0),
 						autoStart: true
 					});
 
@@ -37,7 +38,7 @@ $(function() {
 							.empty()
 							.FlipClock(Math.abs(secondsFromNow), {
 								clockFace: 'DailyCounter',
-								countdown: (secondsFromNow >= 0)
+								countdown: (secondsFromNow > 0)
 							});
 					// $milestone.find(".livestamp").livestamp(milestoneMoment);
 					$milestone.find(".date").text(milestoneMoment.toLocaleString());
