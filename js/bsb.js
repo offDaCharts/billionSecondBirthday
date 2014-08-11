@@ -1,9 +1,12 @@
 $(function() {
-	$('#fullpage').fullpage({
+	var $fullpage = $("#fullpage");
+
+	$fullpage.fullpage({
 		afterLoad: function(anchorLink, index) {
 			var tableDisplayPageNum = 2;
+
 			if (index === tableDisplayPageNum) {
-				var birthday = moment($("input.birthday").val()),
+				var bdaytime = moment($("input[name=bdaytime]").val()),
 					secondMilestones = {
 						'billion': 1e9,
 						'million': 1e6,
@@ -13,18 +16,21 @@ $(function() {
 					$milestone,
 					milestoneMoment;
 
+				var clock = $('#current').FlipClock({
+				// ... your options here
+				});
 
 				for(milestone in secondMilestones) {
 					$milestone = $("#" + milestone);
-					milestoneMoment = moment(birthday + secondMilestones[milestone]*millisecondMultiplier);
+					milestoneMoment = moment(bdaytime + secondMilestones[milestone]*millisecondMultiplier);
 					$milestone.find(".livestamp").livestamp(milestoneMoment);
-					$milestone.find(".date").text(milestoneMoment.toLocaleString())
+					$milestone.find(".date").text(milestoneMoment.toLocaleString());
 				}
 			}
 		}
 	});
 
 	$("#goButton").click(function() {
-		$("#fullpage").fullpage.moveSectionDown();
+		$fullpage.fullpage.moveSectionDown();
 	});
 });
