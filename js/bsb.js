@@ -17,7 +17,7 @@ $(function() {
 					milestoneMoment;
 
 				var clock = $('#current').FlipClock({
-				// ... your options here
+					
 				});
 
 				for(milestone in secondMilestones) {
