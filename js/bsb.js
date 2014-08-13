@@ -5,11 +5,17 @@ $(function() {
         afterLoad: function(anchorLink, index) {
             var tableDisplayPageNum = 2,
                 millisecondMultiplier = 1e3,
+                secondMilestones = {
+                    'billion': 1e9,
+                    'million': 1e6,
+                    'thousand': 1e3
+                },
                 bdaytime,
                 $milestone,
                 milestoneMoment,
                 secondsFromNow,
                 flipclockParameters,
+                nextBirthday,
                 getSecondsFromNow = function(thisMoment) {
                     return Math.round(thisMoment.diff(moment())/millisecondMultiplier);
                 },
@@ -30,12 +36,12 @@ $(function() {
                 },
                 populateNextMilestones = function(bdaytime, quantums) {
                     var currentSecondsAge,
-                    	ageAtnextMilestone,
-                    	nextMilestoneMoment,
-                    	$nextMilestone,
-                    	quantum;
+                        ageAtnextMilestone,
+                        nextMilestoneMoment,
+                        $nextMilestone,
+                        quantum;
                     for(quantum in quantums) {
-                    	$nextMilestone = $("#next" + quantum);
+                        $nextMilestone = $("#next" + capitaliseFirstLetter(quantum));
                         currentSecondsAge = Math.abs(getSecondsFromNow(bdaytime));
                         ageAtnextMilestone = Math.ceil(currentSecondsAge/quantums[quantum]) * quantums[quantum];
                         nextMilestoneMoment = moment(bdaytime + ageAtnextMilestone * millisecondMultiplier);
@@ -50,6 +56,9 @@ $(function() {
                         $nextMilestone.find(".date").text(nextMilestoneMoment.toLocaleString());
                     };
                     
+                },
+                capitaliseFirstLetter = function(string) {
+                    return string.charAt(0).toUpperCase() + string.slice(1);
                 };
 
             if (index === tableDisplayPageNum) {
@@ -63,17 +72,17 @@ $(function() {
                         autoStart: true
                     });
 
-                populateMilestones(bdaytime, {
-                    'billion': 1e9,
-                    'million': 1e6,
-                    'thousand': 1e3
-                });
-                populateNextMilestones(bdaytime, {
-                	'Year': 365*24*3600, //doesn't account for leap years...
-                    'Billion': 1e9,
-                    'Million': 1e6,
-                    'Thousand': 1e3
-                });
+                nextBirthday = moment() < bdaytime.clone().set('year', moment().get('year')) ?
+                    bdaytime.clone().set('year', moment().get('year')) :
+                    bdaytime.clone().set('year', moment().get('year') + 1);
+                $('#nextBirthday .flipclock')
+                    .empty()
+                    .FlipClock(Math.round((nextBirthday - bdaytime) / millisecondMultiplier), {
+                        clockFace: 'Counter',
+                    });
+
+                populateMilestones(bdaytime, secondMilestones);
+                populateNextMilestones(bdaytime, secondMilestones);
 
                 
             }
