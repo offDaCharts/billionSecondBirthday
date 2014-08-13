@@ -1,11 +1,3 @@
 .flipclock {
-    transform-origin: 0 0;
-    transform: scale(.25);
-    -ms-transform: scale(.25);
-    -webkit-transform-origin: 0 0;
-    -webkit-transform: scale(.25);
-    -o-transform-origin: 0 0;
-    -o-transform: scale(.25);
-    -moz-transform-origin: 0 0;
-    -moz-transform: scale(.25);
+    zoom: .3;
 }
